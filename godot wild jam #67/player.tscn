@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://ipsaqqruslrw"]
+
+[ext_resource type="Texture2D" uid="uid://id7qhklinm7k" path="res://character.png" id="1_ltrbn"]
+[ext_resource type="Script" path="res://player.gd" id="1_nd7w1"]
+[ext_resource type="AudioStream" uid="uid://ciacl15xrj3wm" path="res://kenney_sci-fi-sounds/Audio/impactMetal_002.ogg" id="2_18lco"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2pfc4"]
+size = Vector2(49, 13.125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwvaj"]
+size = Vector2(26, 43)
+
+[node name="player" type="CharacterBody2D"]
+collision_mask = 6
+script = ExtResource("1_nd7w1")
+
+[node name="move_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_18lco")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_ltrbn")
+
+[node name="body collision" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 18)
+shape = SubResource("RectangleShape2D_2pfc4")
+
+[node name="head collision" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -9)
+shape = SubResource("RectangleShape2D_vwvaj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

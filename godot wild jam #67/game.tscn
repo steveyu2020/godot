@@ -1,0 +1,122 @@
+[gd_scene load_steps=13 format=3 uid="uid://cvxlrnkllpyka"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_vaokq"]
+[ext_resource type="PackedScene" uid="uid://ipsaqqruslrw" path="res://player.tscn" id="1_xlf6e"]
+[ext_resource type="PackedScene" uid="uid://bg7pl14p32rey" path="res://enemy.tscn" id="2_oekg5"]
+[ext_resource type="Texture2D" uid="uid://c7fgprwtjqhn6" path="res://gwj logo.png" id="2_qu1pi"]
+[ext_resource type="Texture2D" uid="uid://doba1mah4llby" path="res://legit_grid.png" id="5_8sf7s"]
+[ext_resource type="Script" path="res://camera_center.gd" id="6_tirpi"]
+[ext_resource type="PackedScene" uid="uid://cdqis65lg75rj" path="res://innocent.tscn" id="7_20cy1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwgyh"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_egrbh"]
+size = Vector2(2308, 57.1601)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cn5n"]
+size = Vector2(95, 2332.53)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2f26"]
+size = Vector2(97, 2158.03)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fk5ei"]
+size = Vector2(2360, 83.7207)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_vaokq")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="UI"]
+
+[node name="start background" type="Panel" parent="UI/CanvasLayer2"]
+offset_left = -1013.0
+offset_top = -292.0
+offset_right = 2873.0
+offset_bottom = 2097.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fwgyh")
+
+[node name="Startbutton" type="Button" parent="UI/CanvasLayer2/start background"]
+layout_mode = 0
+offset_left = 1678.0
+offset_top = 825.0
+offset_right = 1936.0
+offset_bottom = 967.0
+scale = Vector2(2.12594, 2.13999)
+theme_override_font_sizes/font_size = 63
+text = "Start"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="splashscreen" type="TextureRect" parent="CanvasLayer"]
+offset_left = -218.0
+offset_top = -235.0
+offset_right = 2055.0
+offset_bottom = 1197.0
+texture = ExtResource("2_qu1pi")
+expand_mode = 2
+
+[node name="enemy" parent="." instance=ExtResource("2_oekg5")]
+position = Vector2(80, 1950)
+scale = Vector2(1, 1.01)
+
+[node name="legit_grid" type="TextureRect" parent="."]
+z_index = -100
+offset_right = 2012.0
+offset_bottom = 2052.0
+scale = Vector2(1, 0.997199)
+texture = ExtResource("5_8sf7s")
+stretch_mode = 4
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-327, 0)
+
+[node name="camera_center" type="Area2D" parent="."]
+script = ExtResource("6_tirpi")
+
+[node name="Camera2D" type="Camera2D" parent="camera_center"]
+scale = Vector2(0.993969, 0.994423)
+position_smoothing_enabled = true
+position_smoothing_speed = 0.7
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+
+[node name="top collider" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1045, -2.5)
+scale = Vector2(1, 0.997199)
+shape = SubResource("RectangleShape2D_egrbh")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="left collider" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-23.5, 1003)
+scale = Vector2(1, 0.997199)
+shape = SubResource("RectangleShape2D_3cn5n")
+
+[node name="right collider" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(2044.5, 1058.01)
+scale = Vector2(1, 0.997199)
+shape = SubResource("RectangleShape2D_u2f26")
+
+[node name="bo\'om collider" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1046, 2037)
+scale = Vector2(1, 0.997199)
+shape = SubResource("RectangleShape2D_fk5ei")
+
+[node name="player" parent="." instance=ExtResource("1_xlf6e")]
+position = Vector2(1950, 50)
+
+[node name="innocent" parent="." instance=ExtResource("7_20cy1")]
+visible = false
+
+[connection signal="pressed" from="UI/CanvasLayer2/start background/Startbutton" to="." method="_on_button_pressed"]
+[connection signal="done" from="enemy" to="." method="_on_enemy_done"]

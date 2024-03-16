@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://o226p3vwuo3i"]
+
+[ext_resource type="FontFile" uid="uid://cr0uh8mqerpb3" path="res://Kenney High.ttf" id="1_5vhty"]
+[ext_resource type="Script" path="res://game_over.gd" id="1_qjskv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyfs0"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="game_over" type="Control"]
+layout_mode = 3
+anchor_right = 0.888
+anchor_bottom = 0.943
+offset_left = 3.0
+offset_top = -3.0
+offset_right = -142.976
+offset_bottom = -0.0640259
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qjskv")
+
+[node name="Gameover" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 282.0
+offset_right = 1349.0
+offset_bottom = 788.0
+scale = Vector2(1.12593, 1.1052)
+theme_override_styles/panel = SubResource("StyleBoxFlat_oyfs0")
+
+[node name="gameover" type="Label" parent="Gameover"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 51.0
+offset_right = 749.0
+offset_bottom = 197.0
+theme_override_fonts/font = ExtResource("1_5vhty")
+theme_override_font_sizes/font_size = 124
+text = "You got infected"
+
+[node name="time_survived" type="Label" parent="Gameover"]
+layout_mode = 0
+offset_top = 204.0
+offset_right = 821.0
+offset_bottom = 287.0
+theme_override_fonts/font = ExtResource("1_5vhty")
+theme_override_font_sizes/font_size = 64
+text = "You survived for: "
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Gameover"]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 306.0
+offset_right = 571.0
+offset_bottom = 428.0
+theme_override_fonts/font = ExtResource("1_5vhty")
+theme_override_font_sizes/font_size = 70
+text = "Pass it on"
+
+[connection signal="pressed" from="Gameover/Button" to="." method="_on_button_pressed"]

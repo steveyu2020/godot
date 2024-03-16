@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2qfj2da423ll"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_jg4j8"]
+[ext_resource type="Texture2D" uid="uid://s2lehdpv62dl" path="res://generic_stealth_enemy (1).png" id="1_vjgib"]
+[ext_resource type="Texture2D" uid="uid://dc6oonnqpdcqy" path="res://generic_stealth_radical (1).png" id="2_b60ti"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vbqgt"]
+radius = 28.1603
+
+[node name="enemy" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_jg4j8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_vjgib")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, -5)
+shape = SubResource("CircleShape2D_vbqgt")
+
+[node name="detection area" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="detection area"]
+position = Vector2(174, -3)
+scale = Vector2(6.67969, 4.3125)
+texture = ExtResource("2_b60ti")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="detection area"]
+position = Vector2(-36.1607, 5.02382)
+scale = Vector2(2.553, 1.62202)
+polygon = PackedVector2Array(30, -3, 129, -34, 129, 50)
+
+[connection signal="body_entered" from="detection area" to="." method="_on_detection_area_body_entered"]
